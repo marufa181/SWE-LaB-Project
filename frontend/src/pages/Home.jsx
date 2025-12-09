@@ -1,98 +1,142 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const [count, setCount] = useState(0)
-
-  const features = [
+  // Dummy vehicle data
+  const [vehicles] = useState([
     {
-      title: 'React 18',
-      description: 'Latest React features with hooks and concurrent rendering.',
-      icon: '⚛️'
+      id: 1,
+      name: 'Toyota Corolla',
+      price: '$50 / day',
+      image: 'https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=600&q=60',
     },
     {
-      title: 'Vite',
-      description: 'Fast build tool with hot module replacement and optimized builds.',
-      icon: '⚡'
+      id: 2,
+      name: 'Honda Civic',
+      price: '$55 / day',
+      image: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=600&q=60',
     },
     {
-      title: 'Tailwind CSS',
-      description: 'Utility-first CSS framework for rapid UI development.',
-      icon: '🎨'
-    }
-  ]
+      id: 3,
+      name: 'Tesla Model 3',
+      price: '$80 / day',
+      image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=600&q=60',
+    },
+  ]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-gray-100">
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            React + Vite + Tailwind
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            A modern, fast, and customizable template to kickstart your next React project with the best tools available.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/about" className="btn-primary text-lg px-8 py-4">
-              Get Started
-            </Link>
-            <button className="btn-secondary text-lg px-8 py-4">
-              Learn More
-            </button>
-          </div>
+      <section className="bg-green-600 text-white py-20 text-center">
+        <h1 className="text-5xl font-bold mb-4">TravelEase</h1>
+        <p className="text-xl mb-6">
+          Premium vehicle rentals made simple and fast
+        </p>
+        <Link
+          to="/vehicles"
+          className="bg-white text-green-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition"
+        >
+          View All Vehicles
+        </Link>
+      </section>
+
+      {/* Latest Vehicles Section */}
+      <section className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Latest Vehicles
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {vehicles.map((vehicle) => (
+            <div
+              key={vehicle.id}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
+            >
+              <img
+                src={vehicle.image}
+                alt={vehicle.name}
+                className="w-full h-52 object-cover"
+              />
+
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold mb-2">
+                  {vehicle.name}
+                </h3>
+                <p className="text-green-600 font-semibold mb-4">
+                  {vehicle.price}
+                </p>
+
+                <Link
+                  to="/vehicles"
+                  className="inline-block bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition"
+                >
+                  Book Now
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Everything You Need
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Built with the latest technologies and best practices for modern web development.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="card p-8 text-center">
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+      {/* Categories Section */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-12">Top Categories</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {['SUV', 'Electric', 'Vans', 'Sedan'].map((cat) => (
+              <div
+                key={cat}
+                className="bg-gray-100 p-8 rounded-xl hover:shadow-md transition"
+              >
+                <div className="text-4xl mb-4">🚗</div>
+                <h3 className="text-xl font-bold">{cat}</h3>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Demo Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Interactive Demo</h2>
-          <div className="card p-8 max-w-md mx-auto">
-            <p className="text-lg text-gray-600 mb-6">Count: {count}</p>
-            <div className="flex gap-4 justify-center">
-              <button 
-                onClick={() => setCount(count + 1)}
-                className="btn-primary"
-              >
-                Increment
-              </button>
-              <button 
-                onClick={() => setCount(0)}
-                className="btn-secondary"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
+      {/* About Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <h2 className="text-3xl font-bold mb-6">About TravelEase</h2>
+          <p className="text-gray-600 text-lg">
+            TravelEase is a simple vehicle rental platform that helps you
+            find the perfect ride for every journey. Easy booking, verified
+            owners, and trusted service.
+          </p>
         </div>
       </section>
-    </div>
-  )
-}
 
-export default Home
+      {/* CTA Section */}
+      <section className="bg-green-600 py-16 text-center text-white">
+        <h2 className="text-4xl font-bold mb-4">
+          Ready to Start Your Journey?
+        </h2>
+        <p className="mb-8 text-lg">
+          Choose your vehicle and enjoy a smooth travel experience.
+        </p>
+
+        <div className="flex justify-center gap-4">
+          <Link
+            to="/vehicles"
+            className="bg-white text-green-600 px-6 py-3 rounded-xl font-bold"
+          >
+            Browse Vehicles
+          </Link>
+          <Link
+            to="/register"
+            className="border-2 border-white px-6 py-3 rounded-xl font-bold"
+          >
+            Create Account
+          </Link>
+        </div>
+      </section>
+
+    </div>
+  );
+};
+
+export default Home;
